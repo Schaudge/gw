@@ -98,11 +98,15 @@ namespace Menu {
     // Track popup showing feature info when clicking a genomic track.
     void drawImGuiTrackPopup(Manager::GwPlot* plot);
 
-    // Reference sequence popup: colored, wrapped, scrollable sequence display.
-    void drawImGuiRefPopup(Manager::GwPlot* plot);
+    // Sequence popup: colored, wrapped, scrollable reference or amino-acid display.
+    void drawImGuiSeqPopup(Manager::GwPlot* plot);
 
     // Label progress table: one row per tile/variant with current label and date.
     // Only shown in TILED mode; auto-hides when returning to alignment view.
     void drawImGuiLabelTableDialog(Manager::GwPlot* plot, bool& redraw);
+
+    // Transient status overlay showing the most recent command output/errors
+    // triggered from the ImGui UI. Terminal colors are preserved separately.
+    void drawImGuiCommandStatus(Manager::GwPlot* plot);
 
 }

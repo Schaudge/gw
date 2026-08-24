@@ -31,7 +31,6 @@
 namespace Term {
 
     void help(Themes::IniOptions &opts, std::ostream& out) {
-        out << termcolor::italic << "\n* Select the GW window (not the terminal) and type '/' or ':' to enter a command\n" << termcolor::reset;
         out << termcolor::italic << "\n* Get more help using 'man [COMMAND]' or 'help [COMMAND]'\n" << termcolor::reset;
         out << termcolor::underline << "\nCommand          Modifier        Description                                            \n" << termcolor::reset;
         out << termcolor::green << "[locus]                          " << termcolor::reset << "e.g. 'chr1' or 'chr1:1-20000'\n";
@@ -65,12 +64,14 @@ namespace Term {
         out << termcolor::green << "sam                              " << termcolor::reset << "Print selected read to screen or save to file\n";
         out << termcolor::green << "save             filename        " << termcolor::reset << "Save reads (bam/cram), snapshot (png/pdf/svg), session (ini), or labels (tsv)\n";
         out << termcolor::green << "settings                         " << termcolor::reset << "Open the settings menu'\n";
-		    out << termcolor::green << "snapshot, s      path?           " << termcolor::reset << "Save current window as image e.g. 's', or 's view.png',\n                                 or vcf columns can be used 's {pos}_{info.SU}.png'\n";
+		out << termcolor::green << "snapshot, s      path?           " << termcolor::reset << "Save current window as image e.g. 's', or 's view.png',\n                                 or vcf columns can be used 's {pos}_{info.SU}.png'\n";
         out << termcolor::green << "soft-clips, sc                   " << termcolor::reset << "Toggle soft-clips\n";
         out << termcolor::green << "sort             strand/hap/pos  " << termcolor::reset << "Sort reads by strand, haplotype, and/or pos\n";
         out << termcolor::green << "tab-track-height number          " << termcolor::reset << "Fraction of the window used by all tabix tracks\n";
         out << termcolor::green << "tags                             " << termcolor::reset << "Print selected sam tags\n";
         out << termcolor::green << "theme            igv/dark/slate  " << termcolor::reset << "Switch color theme e.g. 'theme dark'\n";
+        out << termcolor::green << "translate        on/off/frame/   " << termcolor::reset << "Toggle translation track. 'translate frame 1-3',\n";
+        out << termcolor::green << "                 strand/code     " << termcolor::reset << "'translate strand +/-', 'translate code N'\n";
         out << termcolor::green << "tlen-y                           " << termcolor::reset << "Toggle --tlen-y option\n";
         out << termcolor::green << "track-height     target? number? " << termcolor::reset << "Resize one track or the alignment panel. Use\n                                 'track-height' alone to list current heights\n";
         out << termcolor::green << "var, v           vcf_column?     " << termcolor::reset << "Print variant information e.g. 'var', 'var info',\n                                 or a list of columns 'var pos qual format.SU'\n";
@@ -153,6 +154,7 @@ namespace Term {
                    "          lcGTFJoins     - line-colour of joins for GTF/GFF3\n"
                    "          lcLabel        - line-colour of labels\n"
                    "          lcBright       - line-colour of bright edges\n"
+                   "          lcGap         - line-colour of within-read gaps\n"
                    "          tcDel          - text-colour of deletions\n"
                    "          tcIns          - text-colour of insertions\n"
                    "          tcLabels       - text-colour of labels\n"
@@ -378,6 +380,14 @@ namespace Term {
                    "        track-height introns 0.15        # match a track by name\n\n";
         } else if (s == "theme") {
             out << "    Switch the theme.\n        Currently 'igv', 'dark' or 'slate' themes are supported.\n\n";
+        } else if (s == "translate") {
+            out << "    Toggle the translation track.\n"
+                   "        Shows a compact 3-frame translation track below the reference.\n"
+                   "        Sub-commands:\n"
+                   "            translate on|off\n"
+                   "            translate frame 1-3\n"
+                   "            translate strand +|-\n"
+                   "            translate code N    # NCBI genetic code (1 implemented)\n\n";
         } else if (s == "tlen-y") {
             out << "    Toggle --tlen-y option.\n        The --tlen-y option scales reads by template length. Applies to paired-end reads only.\n\n";
         } else if (s == "var" || s == "v") {
